@@ -7,10 +7,10 @@ const app = express();
 
 cloudinary.config({
   // cloud_name : process.env.CLOUD_NAME
-  cloud_name : "atharvapanegai",
-  api_key : "592221752833538",
+  cloud_name: "atharvapanegai",
+  api_key: "592221752833538",
   api_secret: "HUpC_hDWEuHIhDgBsZIraWImz-I",
-})
+});
 
 app.set("view engine", "ejs");
 app.use(express.json());
@@ -31,19 +31,41 @@ app.post("/mypost", async (req, res) => {
   console.log(req.body);
   console.log(req.files);
 
-  let file = req.files.sampleFile;
+  // *******Multiple******
+  let result;
+  let imageArray = [];
 
-  result = await cloudinary.uploader.upload(file.tempFilePath, {
-    folder: "users",
-  });
+  if (req.files) {
+    for (let index = 0; index < req.files.length; index++) {
+      result = await cloudinary.uploader.upload(
+        req.files.sampleFile[index].tempFilePath,
+        {
+          folder: "users",
+        }
+      );
+
+      imageArray.push({
+        public_id: result.public_id,
+        secure_url: result.secure_url,
+      });
+    }
+  }
+
+  // **********For Single Images******
+  // let file = req.files.sampleFile;
+
+  // result = await cloudinary.uploader.upload(file.tempFilePath, {
+  //   folder: "users",
+  // });
 
   console.log(result);
 
   details = {
     firstname: req.body.firstname,
-    lastname: req.body.lastname,
     result,
+    imageArray,
   };
+  console.log(details);
 
   res.send(details);
 });
