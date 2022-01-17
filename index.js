@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/myget", (req, res) => {
   console.log(req.body);
 
-  res.send(req.body);
+  res.send(req.query);
 });
 
 app.get("/mygetform", (req, res) => {
