@@ -18,15 +18,15 @@
   <body class="bg-dark text-white">
     <div class="container mt-4 col-4 col-offset-6">
       <h1 class="display-3">POST FORM</h1>
-      <form>
+      <form method="post" action="/mypost"  enctype="multipart/form-data">
         <div class="mb-3">
           <label for="FirstName" class="form-label">FirstName</label>
-          <input type="text" class="form-control" id="FirstName" aria-describedby="emailHelp">
+          <input type="text" name="firstname" class="form-control" id="FirstName" aria-describedby="emailHelp">
           <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
         </div>
         <div class="mb-3">
-          <label for="lastName" class="form-label">lastName</label>
-          <input type="lastName" class="form-control" id="exampleInputPassword1">
+          <label for="sampleFile" class="form-label">sampleFile</label>
+          <input type="file" name="sampleFile" class="form-control" id="exampleInputPassword1">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
