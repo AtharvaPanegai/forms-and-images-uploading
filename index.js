@@ -31,39 +31,40 @@ app.post("/mypost", async (req, res) => {
   console.log(req.body);
   console.log(req.files);
 
-  // *******Multiple******
   let result;
   let imageArray = [];
 
+  // case - multiple images
+
   if (req.files) {
-    for (let index = 0; index < req.files.length; index++) {
-      result = await cloudinary.uploader.upload(
-        req.files.sampleFile[index].tempFilePath,
+    for (let index = 0; index < req.files.samplefile.length; index++) {
+      let result = await cloudinary.uploader.upload(
+        req.files.samplefile[index].tempFilePath,
         {
-          folder: "users",
+          folder: "users"
         }
       );
 
       imageArray.push({
         public_id: result.public_id,
-        secure_url: result.secure_url,
+        secure_url: result.secure_url
       });
     }
   }
 
-  // **********For Single Images******
-  // let file = req.files.sampleFile;
-
+  // ### use case for single image
+  // let file = req.files.samplefile;
   // result = await cloudinary.uploader.upload(file.tempFilePath, {
   //   folder: "users",
   // });
 
   console.log(result);
 
-  details = {
+  let details = {
     firstname: req.body.firstname,
+    lastname: req.body.lastname,
     result,
-    imageArray,
+    imageArray
   };
   console.log(details);
 
